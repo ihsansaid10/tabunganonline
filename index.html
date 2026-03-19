@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tabungan Planner</title>
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div class="dark-toggle">
+<label class="switch">
+<input type="checkbox" id="darkSwitch">
+<span class="slider"></span>
+</label>
+</div>
+
+<div class="app">
+
+<header>
+<h1>💰 Tabungan Planner</h1>
+<p class="subtitle">Kelola target belanja dari tabunganmu</p>
+</header>
+
+<div class="main-buttons">
+
+<button onclick="bukaPopupKategori()">Tambah Kategori</button>
+
+<button class="btn-download" onclick="downloadData()">Download Data</button>
+
+<label class="btn-import">
+Import Data
+<input type="file" onchange="importData(event)">
+</label>
+
+</div>
+
+<div id="app"></div>
+
+</div>
+
+<!-- popup kategori -->
+<div id="popupKategori" class="popup hidden">
+<div class="popup-card">
+
+<h2>Tambah Kategori</h2>
+
+<input id="namaKategori" placeholder="Nama kategori">
+
+<div class="popup-buttons">
+<button onclick="submitKategori()">Tambah</button>
+<button class="cancel" onclick="tutupPopup()">Batal</button>
+</div>
+
+</div>
+</div>
+
+<!-- popup barang -->
+<div id="popupBarang" class="popup hidden">
+<div class="popup-card">
+
+<h2>Tambah Barang</h2>
+
+<input id="barangNama" placeholder="Nama Barang">
+<input id="barangHarga" placeholder="Harga Barang">
+
+<select id="barangKategori">
+
+<option value="👕 Fashion">👕 Fashion</option>
+<option value="📱 Elektronik">📱 Elektronik</option>
+<option value="🎮 Gaming">🎮 Gaming</option>
+<option value="🎧 Aksesoris">🎧 Aksesoris</option>
+<option value="📚 Lainnya">📚 Lainnya</option>
+
+</select>
+
+<div class="popup-buttons">
+<button onclick="submitBarang()">Tambah</button>
+<button class="cancel" onclick="tutupPopup()">Batal</button>
+</div>
+
+</div>
+</div>
+
+<!-- popup uang -->
+<div id="popupUang" class="popup hidden">
+<div class="popup-card">
+
+<h2>Tambah Uang</h2>
+
+<input id="inputUang" placeholder="Jumlah uang">
+
+<div class="popup-buttons">
+<button onclick="submitUang()">Tambah</button>
+<button class="cancel" onclick="tutupPopup()">Batal</button>
+</div>
+
+</div>
+</div>
+
+<script src="script.js"></script>
+
+</body>
+</html>
