@@ -1,105 +1,90 @@
 <!DOCTYPE html>
-<html>
+<html lang="id">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Tabungan Planner</title>
-<link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tabungan Planner Pro</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
-
 <body>
 
-<div class="dark-toggle">
-<label class="switch">
-<input type="checkbox" id="darkSwitch">
-<span class="slider"></span>
-</label>
-</div>
+    <div class="dark-toggle">
+        <label class="switch">
+            <input type="checkbox" id="darkSwitch">
+            <span class="slider"></span>
+        </label>
+        <span class="mode-text">Mode Gelap</span>
+    </div>
 
-<div class="app">
+    <div class="app">
+        <header>
+            <h1 class="bounce-in">💰 Tabungan Planner</h1>
+            <p class="subtitle">Kelola target belanja dengan lebih menyenangkan</p>
+        </header>
 
-<header>
-<h1>💰 Tabungan Planner</h1>
-<p class="subtitle">Kelola target belanja dari tabunganmu</p>
-</header>
+        <div id="summary-container" class="summary-card fade-in"></div>
 
-<div class="main-buttons">
+        <div class="main-buttons fade-in">
+            <button class="btn-primary" onclick="bukaPopupKategori()">+ Kategori Baru</button>
+            <button class="btn-download" onclick="downloadData()">📦 Download File JSON</button>
+            <label class="btn-import">
+                📥 Import Data
+                <input type="file" onchange="importData(event)">
+            </label>
+        </div>
 
-<button onclick="bukaPopupKategori()">Tambah Kategori</button>
+        <div id="app"></div>
+    </div>
 
-<button class="btn-download" onclick="downloadData()">Download Data</button>
+    <div id="popupKategori" class="popup hidden">
+        <div class="popup-card anim-popup">
+            <h2 id="titleKategori">Kategori</h2>
+            <div class="input-group">
+                <input id="namaKategori" placeholder="Nama kategori baru...">
+            </div>
+            <div class="popup-buttons">
+                <button class="btn-confirm" onclick="submitKategori()">Simpan</button>
+                <button class="btn-cancel" onclick="tutupPopup()">Batal</button>
+            </div>
+        </div>
+    </div>
 
-<label class="btn-import">
-Import Data
-<input type="file" onchange="importData(event)">
-</label>
+    <div id="popupBarang" class="popup hidden">
+        <div class="popup-card anim-popup">
+            <h2 id="titleBarang">Target Barang</h2>
+            <div class="input-group">
+                <input id="barangNama" placeholder="Nama Barang">
+                <input type="number" id="barangHarga" placeholder="Harga">
+                <select id="barangKategori">
+                    <option value="🍱 Food">🍱 Food</option>
+                    <option value="👕 Fashion">👕 Fashion</option>
+                    <option value="📱 Elektronik">📱 Elektronik</option>
+                    <option value="🎮 Gaming">🎮 Gaming</option>
+                    <option value="🎧 Aksesoris">🎧 Aksesoris</option>
+                    <option value="📚 Lainnya">📚 Lainnya</option>
+                </select>
+            </div>
+            <div class="popup-buttons">
+                <button class="btn-confirm" onclick="submitBarang()">Simpan</button>
+                <button class="btn-cancel" onclick="tutupPopup()">Batal</button>
+            </div>
+        </div>
+    </div>
 
-</div>
+    <div id="popupUang" class="popup hidden">
+        <div class="popup-card anim-popup">
+            <h2>Tambah Saldo</h2>
+            <div class="input-group">
+                <input type="number" id="inputUang" placeholder="Jumlah uang...">
+            </div>
+            <div class="popup-buttons">
+                <button class="btn-confirm" onclick="submitUang()">Tambah</button>
+                <button class="btn-cancel" onclick="tutupPopup()">Batal</button>
+            </div>
+        </div>
+    </div>
 
-<div id="app"></div>
-
-</div>
-
-<!-- popup kategori -->
-<div id="popupKategori" class="popup hidden">
-<div class="popup-card">
-
-<h2>Tambah Kategori</h2>
-
-<input id="namaKategori" placeholder="Nama kategori">
-
-<div class="popup-buttons">
-<button onclick="submitKategori()">Tambah</button>
-<button class="cancel" onclick="tutupPopup()">Batal</button>
-</div>
-
-</div>
-</div>
-
-<!-- popup barang -->
-<div id="popupBarang" class="popup hidden">
-<div class="popup-card">
-
-<h2>Tambah Barang</h2>
-
-<input id="barangNama" placeholder="Nama Barang">
-<input id="barangHarga" placeholder="Harga Barang">
-
-<select id="barangKategori">
-
-<option value="👕 Fashion">👕 Fashion</option>
-<option value="📱 Elektronik">📱 Elektronik</option>
-<option value="🎮 Gaming">🎮 Gaming</option>
-<option value="🎧 Aksesoris">🎧 Aksesoris</option>
-<option value="📚 Lainnya">📚 Lainnya</option>
-
-</select>
-
-<div class="popup-buttons">
-<button onclick="submitBarang()">Tambah</button>
-<button class="cancel" onclick="tutupPopup()">Batal</button>
-</div>
-
-</div>
-</div>
-
-<!-- popup uang -->
-<div id="popupUang" class="popup hidden">
-<div class="popup-card">
-
-<h2>Tambah Uang</h2>
-
-<input id="inputUang" placeholder="Jumlah uang">
-
-<div class="popup-buttons">
-<button onclick="submitUang()">Tambah</button>
-<button class="cancel" onclick="tutupPopup()">Batal</button>
-</div>
-
-</div>
-</div>
-
-<script src="script.js"></script>
-
+    <script src="script.js"></script>
 </body>
 </html>
