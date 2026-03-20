@@ -1,235 +1,82 @@
-body{
-font-family:system-ui;
-margin:0;
-background:#eef1f6;
-transition:0.3s;
+:root {
+    --primary: #4CAF50;
+    --danger: #e53935;
+    --warning: #ffa000;
+    --bg-light: #eef1f6;
 }
 
-body.dark{
-background:#121212;
-color:white;
+body {
+    font-family: 'Segoe UI', system-ui, sans-serif;
+    margin: 0; background: var(--bg-light); transition: 0.4s;
 }
+body.dark { background: #121212; color: #f0f0f0; }
 
-.app{
-max-width:900px;
-margin:auto;
-padding:20px;
-}
+.app { max-width: 800px; margin: auto; padding: 20px; padding-bottom: 100px; }
+header { text-align: center; margin-bottom: 30px; }
 
-header{
-text-align:center;
-margin-bottom:20px;
+/* Dashboard */
+.summary-card {
+    background: white; padding: 25px; border-radius: 20px;
+    display: flex; justify-content: space-around; margin-bottom: 25px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1); text-align: center;
 }
+body.dark .summary-card { background: #1e1e1e; }
 
-.main-buttons{
-display:flex;
-justify-content:center;
-gap:12px;
-flex-wrap:wrap;
-margin-bottom:25px;
-}
+.main-buttons { display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; margin-bottom: 25px; }
 
-button{
-border:none;
-border-radius:10px;
-padding:10px 16px;
-cursor:pointer;
-background:#4CAF50;
-color:white;
-transition:0.2s;
+button {
+    border: none; border-radius: 12px; padding: 12px 20px;
+    cursor: pointer; font-weight: 600; transition: 0.2s;
 }
+button:active { transform: scale(0.95); }
+.btn-primary { background: var(--primary); color: white; }
+.btn-download { background: #673ab7; color: white; }
+.btn-import { background: #2196f3; color: white; padding: 12px 20px; border-radius: 12px; cursor: pointer; }
+.btn-import input { display: none; }
 
-button:hover{
-transform:scale(1.05);
+/* Kategori */
+.kategori {
+    background: white; border-radius: 20px; padding: 25px; margin-bottom: 20px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.06); animation: slideUp 0.5s ease;
 }
+body.dark .kategori { background: #1e1e1e; }
+.kategori-header { display: flex; justify-content: space-between; align-items: center; cursor: pointer; }
 
-.btn-download{
-background:#673ab7;
+/* Perbaikan Popup & Input */
+.popup {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0,0,0,0.6); backdrop-filter: blur(8px);
+    display: flex; justify-content: center; align-items: center; z-index: 1000;
 }
+.popup-card {
+    background: white; border-radius: 24px; padding: 30px;
+    width: 90%; max-width: 360px; box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+}
+body.dark .popup-card { background: #252525; }
 
-.btn-import{
-background:#2196f3;
-padding:10px 16px;
-border-radius:10px;
-color:white;
-cursor:pointer;
+.input-group { display: flex; flex-direction: column; gap: 12px; }
+input, select {
+    width: 100%; padding: 14px; border-radius: 12px; border: 1px solid #ddd;
+    font-size: 1rem; box-sizing: border-box; outline: none; transition: 0.3s;
 }
+body.dark input, body.dark select { background: #333; border-color: #444; color: white; }
 
-.btn-import input{
-display:none;
-}
+.popup-buttons { display: flex; gap: 10px; margin-top: 25px; }
+.btn-confirm { background: var(--primary); color: white; flex: 1; }
+.btn-cancel { background: var(--danger); color: white; flex: 1; }
 
-.kategori{
-background:white;
-border-radius:14px;
-padding:18px;
-margin-bottom:20px;
-box-shadow:0 6px 18px rgba(0,0,0,0.08);
-animation:cardEnter 0.4s ease;
-}
+.progress { height: 10px; background: #eee; border-radius: 10px; margin-top: 10px; overflow: hidden; }
+body.dark .progress { background: #333; }
+.progress-bar { height: 100%; transition: width 0.8s ease; }
 
-body.dark .kategori{
-background:#1e1e1e;
+.dark-toggle {
+    position: fixed; bottom: 25px; left: 25px; z-index: 999;
+    background: white; padding: 10px 20px; border-radius: 40px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15); display: flex; align-items: center; gap: 10px;
 }
+body.dark .dark-toggle { background: #333; }
 
-@keyframes cardEnter{
-from{
-opacity:0;
-transform:translateY(20px);
-}
-to{
-opacity:1;
-transform:translateY(0);
-}
-}
-
-.barang{
-display:flex;
-justify-content:space-between;
-align-items:center;
-padding:10px 0;
-border-bottom:1px solid #eee;
-}
-
-.progress{
-height:8px;
-background:#ccc;
-border-radius:10px;
-margin-top:5px;
-}
-
-.progress-bar{
-height:8px;
-background:#4CAF50;
-border-radius:10px;
-}
-
-/* popup */
-
-.popup{
-position:fixed;
-top:0;
-left:0;
-width:100%;
-height:100%;
-background:rgba(0,0,0,0.4);
-display:flex;
-justify-content:center;
-align-items:center;
-}
-
-.popup-card{
-background:white;
-border-radius:16px;
-padding:25px;
-width:320px;
-animation:popupScale .25s ease;
-}
-
-body.dark .popup-card{
-background:#1e1e1e;
-}
-
-@keyframes popupScale{
-from{
-transform:scale(.8);
-opacity:0;
-}
-to{
-transform:scale(1);
-opacity:1;
-}
-}
-
-.popup-buttons{
-display:flex;
-gap:10px;
-margin-top:15px;
-}
-
-.cancel{
-background:#e53935;
-}
-
-input,select{
-width:100%;
-padding:10px;
-margin-top:8px;
-border-radius:8px;
-border:1px solid #ccc;
-}
-
-.hidden{
-display:none;
-}
-
-/* DARK SWITCH */
-
-.dark-toggle{
-position:fixed;
-top:15px;
-left:15px;
-}
-
-.switch{
-position:relative;
-display:inline-block;
-width:50px;
-height:24px;
-}
-
-.switch input{
-opacity:0;
-width:0;
-height:0;
-}
-
-.slider{
-position:absolute;
-cursor:pointer;
-top:0;
-left:0;
-right:0;
-bottom:0;
-background:#ccc;
-border-radius:34px;
-}
-
-.slider:before{
-position:absolute;
-content:"";
-height:18px;
-width:18px;
-left:3px;
-bottom:3px;
-background:white;
-border-radius:50%;
-transition:.2s;
-}
-
-input:checked + .slider{
-background:#4CAF50;
-}
-
-input:checked + .slider:before{
-transform:translateX(26px);
-}
-
-/* mobile */
-
-@media(max-width:600px){
-
-.barang{
-flex-direction:column;
-align-items:flex-start;
-}
-
-.main-buttons{
-flex-direction:column;
-}
-
-button{
-width:100%;
-}
-
-}
+.hidden { display: none; }
+@keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes popupPop { from { opacity: 0; transform: scale(0.8); } to { opacity: 1; transform: scale(1); } }
+.anim-popup { animation: popupPop 0.3s cubic-bezier(0.34, 1.56, 0.64, 1); }
